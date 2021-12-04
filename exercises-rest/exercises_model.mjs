@@ -68,4 +68,13 @@ const updateExercise = async(id, name, reps, weight, unit, date) => {
 }
 
 
-export {createExercise, updateExercise, findExercises};
+/**
+ * Deletes exercise based on _id
+ */
+const deleteById = async(_id) => {
+    const result = await Exercise.deleteOne({_id: _id});
+    return result.deletedCount;
+}
+
+
+export {createExercise, updateExercise, findExercises, deleteById};

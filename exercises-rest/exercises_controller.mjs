@@ -11,7 +11,6 @@ app.use(express.json());
  * Create a new exercise with the name, reps, weight, units, and date provided in the body
  */
 app.post('/exercises', (req, res) => {
-    console.log(req.body);
     exercises.createExercise(req.body.name, req.body.reps, req.body.weight, req.body.unit, req.body.date)
         .then(exercise => {
             res.status(201).json(exercise);
@@ -84,8 +83,19 @@ app.put('/exercises/:_id', (req, res) => {
 /**
  * Delete the exercise whose id is provided in the query parameters
  */
-app.delete('/exercises/:_id', (req, res) => {
-    
+ app.delete('/exercises/:_id', (req, res) => {
+    exercises.deleteById(req.params._id)
+        .then(deletedCount => {
+            if (deletedCount === 1) {
+                res.status(204).send();
+            } else {
+                res.status(404).json({ Error: 'Resource not found' });
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            res.send({ error: 'Request failed' });
+        });
 });
 
 app.listen(PORT, () => {
