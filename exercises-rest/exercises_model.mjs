@@ -43,6 +43,21 @@ const createExercise = async (name, reps, weight, unit, date) =>{
     return exercise.save();
 }
 
+
+/** Retrieve exercises
+ * @param {Object} filters
+ * @param {String} Number
+ * @param {Number} limit
+ * @returns
+ */
+const findExercises = async (filters, projection, limit) => {
+    const query = Exercise.find();
+    if(filters.length > 0) {
+        query.and(filters);
+    }
+    return query.exec();
+}
+
 /**
  * Update user based on _id and update any other provided values
  * @param {Object} conditions
@@ -56,4 +71,4 @@ const updateExercise = async(conditions, update) => {
 }
 
 
-export {createExercise, updateExercise};
+export {createExercise, updateExercise, findExercises};

@@ -1,5 +1,5 @@
 import * as exercises from './exercises_model.mjs';
-import express, { query } from 'express';
+import express from 'express';
 
 const PORT = 3000;
 
@@ -11,7 +11,8 @@ app.use(express.json());
  * Create a new exercise with the name, reps, weight, units, and date provided in the body
  */
 app.post('/exercises', (req, res) => {
-    exercises.createExercise(req.body.name, req.body.reps, req.body.weight, req.body.unit. req.body.date)
+    console.log(req.body);
+    exercises.createExercise(req.body.name, req.body.reps, req.body.weight, req.body.unit, req.body.date)
         .then(exercise => {
             res.status(201).json(exercise);
         })
@@ -45,7 +46,19 @@ app.get('/exercises/:_id', (req, res) => {
  * Retrieve exercises. 
  */
 app.get('/exercises', (req, res) => {
-    
+    exercises.findExercises({},'',0)
+        .then(exercises => {
+            if(exercises !== null){
+                res.json(exercises);
+            }
+            else{
+                res.status(404).json({Error: 'Resource not found'});
+            }
+            
+        })
+        .catch(error => {
+            res.status(400).json({Error: 'Request failed'});
+        })
   
 });
 
