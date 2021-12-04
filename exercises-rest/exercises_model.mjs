@@ -60,14 +60,11 @@ const findExercises = async (filters, projection, limit) => {
 
 /**
  * Update exercise based on _id and update any other provided values
- * @param {Object} conditions
- * @param {Object} update
  * @returns
  */
-const updateExercise = async(conditions, update) => {
-    conditions = {_id: conditions};
-    const result = await Exercise.findOneAndUpdate(conditions, update);
-    return result._id | 1;
+const updateExercise = async(id, name, reps, weight, unit, date) => {
+    const result = await Exercise.replaceOne({ _id: id }, { name: name, reps: reps, weight: weight, unit: unit, date: date});
+    return result.modifiedCount;
 }
 
 
