@@ -1,5 +1,5 @@
 import * as exercises from './exercises_model.mjs';
-import express from 'express';
+import express, { query } from 'express';
 
 const PORT = 3000;
 
