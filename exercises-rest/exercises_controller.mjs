@@ -26,7 +26,19 @@ app.post('/exercises', (req, res) => {
  * Retrive the movie corresponding to the ID provided in the URL.
  */
 app.get('/exercises/:_id', (req, res) => {
-    
+    const exerciseId = req.params._id;
+    exercises.findExerciseById(exerciseId)
+        .then(exercise => {
+            if (exercise !== null){
+                res.json(exercise);
+            }
+            else {
+                res.status(404).json({Error: 'Resource not found'});
+            }
+        })
+        .catch(error => {
+            res.status(400).json({Error: 'Request failed'});
+        })
 });
 
 /**
