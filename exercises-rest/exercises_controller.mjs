@@ -11,7 +11,14 @@ app.use(express.json());
  * Create a new movie with the title, year and language provided in the body
  */
 app.post('/exercises', (req, res) => {
-    
+    exercises.createExercise(req.body.name, req.body.reps, req.body.weight, req.body.unit. req.body.date)
+        .then(exercise => {
+            res.status(201).json(exercise);
+        })
+        .catch(error => {
+            console.error(error);
+            res.status(400).json({Error: 'Request failed'});
+        });
 });
 
 
