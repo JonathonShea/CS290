@@ -59,7 +59,7 @@ const findExercises = async (filters, projection, limit) => {
 }
 
 /**
- * Update user based on _id and update any other provided values
+ * Update exercise based on _id and update any other provided values
  * @param {Object} conditions
  * @param {Object} update
  * @returns
