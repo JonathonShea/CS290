@@ -45,6 +45,7 @@ app.get('/exercises/:_id', (req, res) => {
  * Retrieve exercises. 
  */
 app.get('/exercises', (req, res) => {
+    
   
 });
 

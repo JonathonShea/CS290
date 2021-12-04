@@ -30,3 +30,30 @@ const exerciseSchema = mongoose.Schema({
  */
 const Exercise = mongoose.model("Exercise", exerciseSchema);
 
+/** Create an exercise
+ * @param {String} name
+ * @param {Number} reps
+ * @param {Number} weight
+ * @param {String} unit
+ * @param {String} date
+ * @returns
+ */
+const createExercise = async (name, reps, weight, unit, date) =>{
+    const exercise = new Exercise({name: name, reps: reps, weight: weight, unit: unit, date: date});
+    return exercise.save();
+}
+
+/**
+ * Update user based on _id and update any other provided values
+ * @param {Object} conditions
+ * @param {Object} update
+ * @returns
+ */
+const updateExercise = async(conditions, update) => {
+    conditions = {_id: conditions};
+    const result = await Exercise.findOneAndUpdate(conditions, update);
+    return result._id | 1;
+}
+
+
+export {createExercise, updateExercise};
